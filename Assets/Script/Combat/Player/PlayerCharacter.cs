@@ -23,13 +23,17 @@ namespace ProjectS.Combat.Player
         public AbstractRuntimeSkillData Skill3RuntimeData { get; private set; }
         public AbstractRuntimeSkillData Skill4RuntimeData { get; private set; }
 
+        public Animator Animator { get => _animator; }
+        public PlayerAnimator PlayerAnimator { get => _playerAnimator; }
+
         /// <summary>
         /// Following variable checks to see if the player can receive the movement input or not.
         /// </summary>
         private bool canReceiveMoveInput = true;
 
-        private Animator _playerAnimator;
-        
+        private Animator _animator;
+        private PlayerAnimator _playerAnimator; 
+
 
         private AbstractRuntimeSkillData _currentlyActiveSkill;
 
@@ -55,12 +59,19 @@ namespace ProjectS.Combat.Player
 
         public void ActivateSkill1(Vector3 inputCoord)
         {
-            Debug.Log("Activating Skill 1.");
+            if (_currentlyActiveSkill != null && _currentlyActiveSkill.SkillData.SkillID != Skill1RuntimeData.SkillData.SkillID)
+            {
+                //If another skill is already active, just return.
+                return;
+            }
+
             if (_currentlyActiveSkill != Skill1RuntimeData)
             {
                 _currentlyActiveSkill = Skill1RuntimeData;
             }
-            _currentlyActiveSkill.ActivateSkill();
+            _currentlyActiveSkill.ActivateSkill(inputCoord);
+
+            _animator.SetFloat("MoveSpeed", 0); //Set animator move speed to 0.
         }
 
         public void ActivateSkill2(Vector2 mousePos)
@@ -78,6 +89,26 @@ namespace ProjectS.Combat.Player
             Debug.Log("Skill 4 activated");
         }
 
+        /// <summary>
+        /// This is called by the animation system to return to root layer.
+        /// </summary>
+        public void EndCurrentSkill()
+        {
+            _currentlyActiveSkill.EndSkill();
+            _currentlyActiveSkill = null; //Set the currently active skill to null
+
+            //Make character stationary.
+            targetPosition = transform.position;
+        }
+
+        /// <summary>
+        /// This method is called by the animator to play the skill trigger effect.
+        /// </summary>
+        public void TriggerSkillEffect()
+        {
+
+        }
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -87,13 +118,20 @@ namespace ProjectS.Combat.Player
             Skill3RuntimeData = skill3Data.GenerateRuntimeSkillData(this);
             Skill4RuntimeData = skill4Data.GenerateRuntimeSkillData(this);
 
-            _playerAnimator = GetComponentInChildren<Animator>();
+            _animator = GetComponentInChildren<Animator>();
+            if (_animator.GetComponent<PlayerAnimator>() == null)
+            {
+                _playerAnimator = _animator.gameObject.AddComponent<PlayerAnimator>();
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
-            UpdateMovementState();
+            if (_currentlyActiveSkill == null)
+            {
+                UpdateMovementState();
+            }
             HandleSkillState();
         }
 
@@ -112,26 +150,22 @@ namespace ProjectS.Combat.Player
             {
                 //Move the player to the target position
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * moveSpeed);
-                _playerAnimator.SetFloat("MoveSpeed", moveSpeed);
+                _animator.SetFloat("MoveSpeed", moveSpeed);
             }
             else
             {
                 //If the player is not moving, set the move speed to 0
-                _playerAnimator.SetFloat("MoveSpeed", 0);
+                _animator.SetFloat("MoveSpeed", 0);
             }
         }
 
         public void HandleSkillState()
         {
-            if (_currentlyActiveSkill != null)
+            if (_currentlyActiveSkill == null)
             {
-                bool isFinished = !_currentlyActiveSkill.UpdateSkill();
+                //If there is not active skill make sure to return to base layer state.
+                //This exists in the case that the player unit is stuck in a skill state.
 
-                if (isFinished)
-                {
-                    _currentlyActiveSkill.EndSkill();
-                    _currentlyActiveSkill = null; //Set the currently active skill to null
-                }
             }
         }
     }

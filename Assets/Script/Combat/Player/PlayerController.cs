@@ -98,6 +98,30 @@ namespace ProjectS.Combat.Player
             }
         }
 
+        public Vector3 GetCurrentMouseToGameCoord()
+        {
+
+            Mouse mouse = Mouse.current;
+
+            //Get mouse position
+            Vector2 mousePosition = mouse.position.ReadValue();
+            //Convert to world position
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.nearClipPlane));
+
+            //Raycast to ground and get the hit point
+            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 10000f, LayerMask.GetMask("Ground")))
+            {
+                //Get the hit point
+                Vector3 hitPoint = hit.point;
+
+                //Pass the hit point to the player character
+                return hitPoint;
+            }
+            return Vector3.zero;
+        }
+
         public Vector2 GetMousePosition()
         {
             Mouse mouse = Mouse.current;
@@ -109,7 +133,7 @@ namespace ProjectS.Combat.Player
         {
             // Handle skill 1 action
             Debug.Log("Skill 1 Pressed");
-            playerCharacter.ActivateSkill1(GetMousePosition());
+            playerCharacter.ActivateSkill1(GetCurrentMouseToGameCoord());
         }
 
         private void HandleSkill2Action(InputAction.CallbackContext context)

@@ -1,3 +1,4 @@
+using ProjectS.Combat.Player;
 using UnityEngine;
 
 
@@ -7,9 +8,12 @@ namespace ProjectS.Skill
     {
         public AbstractSkillData SkillData { get; private set; }
 
-        public AbstractRuntimeSkillData(AbstractSkillData skillData)
+        public PlayerCharacter Character { get; private set; }
+
+        public AbstractRuntimeSkillData(PlayerCharacter character, AbstractSkillData skillData)
         {
             SkillData = skillData;
+            Character = character;
         }
 
 
@@ -17,7 +21,9 @@ namespace ProjectS.Skill
         /// Function called when the skill button is pressed.
         /// For multi sequence skills, this can be pressed multiple times during single activation.
         /// </summary>
-        public abstract void ActivateSkill();
+        public abstract void ActivateSkill(Vector3 coord);
+
+        public abstract void TriggerSkillEffect();
 
         /// <summary>
         /// This method is called every frame to update the skill.

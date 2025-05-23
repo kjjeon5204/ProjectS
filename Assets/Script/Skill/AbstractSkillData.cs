@@ -8,7 +8,6 @@ namespace ProjectS.Skill
     {
         public string SkillID;
 
-
         public abstract AbstractRuntimeSkillData GenerateRuntimeSkillData(PlayerCharacter character);
     }
 
