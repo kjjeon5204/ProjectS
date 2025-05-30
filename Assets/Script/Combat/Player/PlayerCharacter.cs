@@ -12,10 +12,11 @@ namespace ProjectS.Combat.Player
 
         [SerializeField] private AbstractSkillData skill1Data;
         [SerializeField] private AbstractSkillData skill2Data;
-
         [SerializeField] private AbstractSkillData skill3Data;
-
         [SerializeField] private AbstractSkillData skill4Data;
+        [SerializeField] private AbstractSkillData dodgeSkillData;
+
+
 
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float rotationSpeed = 720f;
@@ -25,6 +26,7 @@ namespace ProjectS.Combat.Player
         public AbstractRuntimeSkillData Skill2RuntimeData { get; private set; }
         public AbstractRuntimeSkillData Skill3RuntimeData { get; private set; }
         public AbstractRuntimeSkillData Skill4RuntimeData { get; private set; }
+        public AbstractRuntimeSkillData DodgeSkillRuntimeData { get; private set; }
 
         public Animator Animator { get => _animator; }
         public PlayerAnimator PlayerAnimator { get => _playerAnimator; }
@@ -48,7 +50,7 @@ namespace ProjectS.Combat.Player
 
 
         //Input value is vector3 in world cooredinate space.
-        public void ReceiveInputCoord(Vector3 inputPos)
+        public void HandleMoveCommand(Vector3 inputPos)
         {
             if (!canReceiveMoveInput) //If movement input is not allowed ignore input command.
             {
@@ -61,6 +63,24 @@ namespace ProjectS.Combat.Player
             //Set the target look rotation to the input position.
             targetLookRotation = Quaternion.LookRotation(inputPos - transform.position);
         }
+
+        public void HandleDodgeCommand(Vector3 inputPos)
+        {
+            //If the player is current active in a skill, interrupt the skill first as long as it is not as dodge skill
+            if (_currentlyActiveSkill != null && _currentlyActiveSkill != DodgeSkillRuntimeData)
+            {
+                _currentlyActiveSkill.InterruptSkill();
+                _currentlyActiveSkill = null;
+            }
+
+            //Create a dodge command to run. Dodge is considered a "skill"
+            _currentlyActiveSkill = DodgeSkillRuntimeData;
+            _currentlyActiveSkill.ActivateSkill(inputPos); //Activate the dodge skill with the input position.
+
+            //This is currently to prevent animator to play the movement animation while dodging.
+            _animator.SetFloat("MoveSpeed", 0);
+        }
+
 
         public void ActivateSkill1(Vector3 inputCoord)
         {
@@ -76,6 +96,7 @@ namespace ProjectS.Combat.Player
             }
             _currentlyActiveSkill.ActivateSkill(inputCoord);
 
+            //This is currently to prevent animator to play the movement animation while using skill animation.
             _animator.SetFloat("MoveSpeed", 0); //Set animator move speed to 0.
         }
 
@@ -123,6 +144,7 @@ namespace ProjectS.Combat.Player
             Skill2RuntimeData = skill2Data.GenerateRuntimeSkillData(this);
             Skill3RuntimeData = skill3Data.GenerateRuntimeSkillData(this);
             Skill4RuntimeData = skill4Data.GenerateRuntimeSkillData(this);
+            DodgeSkillRuntimeData = dodgeSkillData.GenerateRuntimeSkillData(this);
 
             _animator = GetComponentInChildren<Animator>();
             if (_animator.GetComponent<PlayerAnimator>() == null)

@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 1093437156}
   - component: {fileID: 1093437157}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player_Hero1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -707,10 +707,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52aab9e8d6ec174eacc74431ca508e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterData: {fileID: 11400000, guid: 5db3826aa7a358341a85f00e842c8401, type: 2}
   skill1Data: {fileID: 11400000, guid: ab1b33f456474d040b95dd2b647037b8, type: 2}
   skill2Data: {fileID: 11400000, guid: f469c569ed9459247a7ca1db5bcbf9a9, type: 2}
   skill3Data: {fileID: 11400000, guid: 3e04db76ecfa92540bdf99ec80eee04f, type: 2}
   skill4Data: {fileID: 11400000, guid: ebe59aec4c37bd1499dd5bd6fea6b4c3, type: 2}
+  dodgeSkillData: {fileID: 11400000, guid: ac666aee1933c1a43b94f4791e52fed7, type: 2}
   moveSpeed: 5
   rotationSpeed: 720
 --- !u!1 &1146009749
@@ -1626,6 +1628,7 @@ MonoBehaviour:
   skill2ActionName: Skill2
   skill3ActionName: Skill3
   skill4ActionName: Skill4
+  dodgeActionName: Dodge
 --- !u!1 &1930341621
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,12 +29,14 @@ namespace ProjectS.Combat.Player
         [SerializeField] private string skill2ActionName = "Skill2";
         [SerializeField] private string skill3ActionName = "Skill3";
         [SerializeField] private string skill4ActionName = "Skill4";
+        [SerializeField] private string dodgeActionName = "Dodge";
 
         private InputAction moveClickAction;
         private InputAction skill1Action;
         private InputAction skill2Action;
         private InputAction skill3Action;
         private InputAction skill4Action;
+        private InputAction dodgeAction;
 
 
         private bool initialized = false;
@@ -51,6 +53,7 @@ namespace ProjectS.Combat.Player
             skill2Action = playerActionMap.FindAction(skill2ActionName);
             skill3Action = playerActionMap.FindAction(skill3ActionName);
             skill4Action = playerActionMap.FindAction(skill4ActionName);
+            dodgeAction = playerActionMap.FindAction(dodgeActionName);
 
 
             // Enable the action map
@@ -69,11 +72,48 @@ namespace ProjectS.Combat.Player
             skill2Action.performed += HandleSkill2Action;
             skill3Action.performed += HandleSkill3Action;
             skill4Action.performed += HandleSkill4Action;
+            dodgeAction.performed += HandleDodgeAction;
         }
 
         private void HandleClickAction(InputAction.CallbackContext context)
         {
             PassMovement();
+        }
+
+        private void HandleDodgeAction(InputAction.CallbackContext context)
+        {
+            // Handle dodge action
+            Debug.Log("Dodge Pressed");
+            Vector3 pos = GetCurrentMouseToGameCoord();
+            playerCharacter.HandleDodgeCommand(pos);
+        }
+
+        private void HandleSkill1Action(InputAction.CallbackContext context)
+        {
+            // Handle skill 1 action
+            Debug.Log("Skill 1 Pressed");
+            playerCharacter.ActivateSkill1(GetCurrentMouseToGameCoord());
+        }
+
+        private void HandleSkill2Action(InputAction.CallbackContext context)
+        {
+            // Handle skill 2 action
+            Debug.Log("Skill 2 Pressed");
+            playerCharacter.ActivateSkill2(GetMousePosition());
+        }
+
+        private void HandleSkill3Action(InputAction.CallbackContext context)
+        {
+            // Handle skill 3 action
+            Debug.Log("Skill 3 Pressed");
+            playerCharacter.ActivateSkill3(GetMousePosition());
+        }
+
+        private void HandleSkill4Action(InputAction.CallbackContext context)
+        {
+            // Handle skill 4 action
+            Debug.Log("Skill 4 Pressed");
+            playerCharacter.ActivateSkill4(GetMousePosition());
         }
 
         public void PassMovement()
@@ -94,9 +134,11 @@ namespace ProjectS.Combat.Player
                 Vector3 hitPoint = hit.point;
 
                 //Pass the hit point to the player character
-                playerCharacter.ReceiveInputCoord(hitPoint);
+                playerCharacter.HandleMoveCommand(hitPoint);
             }
         }
+
+
 
         public Vector3 GetCurrentMouseToGameCoord()
         {
@@ -129,35 +171,6 @@ namespace ProjectS.Combat.Player
             return mousePosition;
         }
 
-        private void HandleSkill1Action(InputAction.CallbackContext context)
-        {
-            // Handle skill 1 action
-            Debug.Log("Skill 1 Pressed");
-            playerCharacter.ActivateSkill1(GetCurrentMouseToGameCoord());
-        }
-
-        private void HandleSkill2Action(InputAction.CallbackContext context)
-        {
-            // Handle skill 2 action
-            Debug.Log("Skill 2 Pressed");
-            playerCharacter.ActivateSkill2(GetMousePosition());
-        }
-
-        private void HandleSkill3Action(InputAction.CallbackContext context)
-        {
-            // Handle skill 3 action
-            Debug.Log("Skill 3 Pressed");
-            playerCharacter.ActivateSkill3(GetMousePosition());
-        }
-
-        private void HandleSkill4Action(InputAction.CallbackContext context)
-        {
-            // Handle skill 4 action
-            Debug.Log("Skill 4 Pressed");
-            playerCharacter.ActivateSkill4(GetMousePosition());
-        }
-
-        
 
         public void HandleInput()
         {
