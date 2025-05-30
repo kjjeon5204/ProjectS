@@ -99,6 +99,7 @@ namespace ProjectS.Combat.Player
 
             //Make character stationary.
             targetPosition = transform.position;
+            targetLookRotation = transform.rotation;
         }
 
         /// <summary>
