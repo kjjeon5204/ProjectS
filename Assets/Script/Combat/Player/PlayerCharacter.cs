@@ -1,3 +1,4 @@
+using ProjectS.GameData;
 using ProjectS.Skill;
 using System.Collections;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace ProjectS.Combat.Player
 {
     public class PlayerCharacter : MonoBehaviour
     {
+        [SerializeField] private CharacterData characterData;
+
         [SerializeField] private AbstractSkillData skill1Data;
         [SerializeField] private AbstractSkillData skill2Data;
 
@@ -25,6 +28,8 @@ namespace ProjectS.Combat.Player
 
         public Animator Animator { get => _animator; }
         public PlayerAnimator PlayerAnimator { get => _playerAnimator; }
+
+        public RuntimeStatData RuntimeStatData { get; private set; }
 
         /// <summary>
         /// Following variable checks to see if the player can receive the movement input or not.
