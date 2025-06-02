@@ -6,13 +6,19 @@ namespace ProjectS.Skill
 {
     public class DodgeRuntimeSkillData : AbstractRuntimeSkillData
     {
+        private DodgeSkillData _skillData => (DodgeSkillData)SkillData;
+
         public DodgeRuntimeSkillData(PlayerCharacter character, AbstractSkillData skillData) : base(character, skillData)
         {
         }
 
         public override void ActivateSkill(Vector3 coord)
         {
-            throw new System.NotImplementedException();
+            Character.PlayerAnimator.HandleSkillAnimationData(_skillData.AnimationData);
+            coord.y = Character.transform.position.y;
+            Character.transform.LookAt(coord); // Force look at the input coordinate.
+
+
         }
 
         public override void EndSkill()
