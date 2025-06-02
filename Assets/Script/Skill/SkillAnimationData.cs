@@ -9,6 +9,7 @@ namespace ProjectS.Skill
         public string animationTrigger;
         public Vector3 moveSpeed; // The speed of the character during the animation
         public Vector3 InstantMove; // The speed of the character during the animation
+        public float RotationSpeed = 0.0f;
     }
 }
 
