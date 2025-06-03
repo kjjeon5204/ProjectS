@@ -16,11 +16,11 @@ MonoBehaviour:
   _conditions:
   - _conditionType: 0
     TargetPositionCondition:
-      DistanceCheck: 0
+      DistanceCheck: 1
       DistanceConditions:
       - Axis: 0
         Comparison: 0
-        Value: 10
+        Value: 15
       - Axis: 0
         Comparison: 4
         Value: 5
@@ -46,12 +46,19 @@ MonoBehaviour:
         Value: 30
     CooldownCondition:
       CooldownTime: 10
+  DisableAnimatorRootMotion: 0
   AnimatorTrigger: Attack1
   AttackDataList: []
   BehaviorStateOptions:
   - MoveSpeed: 0
     RotationSpeed: 20
+    SetToTargetPosition: 0
+    SetToForceLookTarget: 0
   - MoveSpeed: 40
     RotationSpeed: 0
+    SetToTargetPosition: 0
+    SetToForceLookTarget: 0
   - MoveSpeed: 0
     RotationSpeed: 0
+    SetToTargetPosition: 0
+    SetToForceLookTarget: 0
