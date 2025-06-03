@@ -18,7 +18,6 @@ namespace ProjectS.Skill
             coord.y = Character.transform.position.y;
             Character.transform.LookAt(coord); // Force look at the input coordinate.
 
-
         }
 
         public override void EndSkill()

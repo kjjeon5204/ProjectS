@@ -34,7 +34,7 @@ namespace ProjectS.Combat.NPC.Behavior {
             //Convert the target's coordinate to the local space of the npc.
 
             //Set animator trigger depending on which side of the npc the target is.
-            if (localCoord.x < 0) { //Target is left of the npc os set trigger left.
+            if (localTargetCoord.x < 0) { //Target is left of the npc os set trigger left.
                 characterAnimator.SetTrigger(_behavior.TurnLeftTrigger);
             }
             else {
@@ -51,8 +51,20 @@ namespace ProjectS.Combat.NPC.Behavior {
 
         }
 
-        public override void UpdateBehavior() {
+        public override void UpdateBehavior()
+        {
+            //Rotate character to face the targetPlayerCoordinate by rotationSpeed degrees per second.
+            Vector3 direction = targetPlayerCoordinate - _npcCharacter.transform.position;
+            if (direction.sqrMagnitude > 0.01f)
+            { //Check if the target is not too close.
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                _npcCharacter.transform.rotation = Quaternion.RotateTowards(_npcCharacter.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
+        }
 
+        public override void IncrementBehaviorSequence()
+        {
+            //This behavior is a single sequence behavior, so we do not need to increment the sequence.
         }
     }
 }
