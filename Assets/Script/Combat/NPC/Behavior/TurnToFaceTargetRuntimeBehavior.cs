@@ -40,7 +40,6 @@ namespace ProjectS.Combat.NPC.Behavior {
             else {
                 characterAnimator.SetTrigger(_behavior.TurnRightTrigger);
             }
-
         }
 
         public override void EndBehavior() {
@@ -65,6 +64,11 @@ namespace ProjectS.Combat.NPC.Behavior {
         public override void IncrementBehaviorSequence()
         {
             //This behavior is a single sequence behavior, so we do not need to increment the sequence.
+        }
+
+        public override void TriggerAnimatorEvent(string eventName)
+        {
+            //Do nothing, as this behavior does not require any specific animator events.
         }
     }
 }

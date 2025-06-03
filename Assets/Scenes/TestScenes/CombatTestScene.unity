@@ -1886,8 +1886,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed7c328702b9054cbbb6a5a8cc67bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _behaviors: []
-  behaviorPollCooldown: 3
+  _behaviors:
+  - {fileID: 11400000, guid: ee87a48fa363ce94b9d9f3673558525b, type: 2}
+  - {fileID: 11400000, guid: 3b0dc8cbb92c50c41b9ea76b6a60bead, type: 2}
+  - {fileID: 11400000, guid: e57b96c3497e22640a133ef4ddd44716, type: 2}
+  - {fileID: 11400000, guid: 16e3df2876cbbeb48af16c6505009c2e, type: 2}
+  - {fileID: 11400000, guid: ced3ec8510ad64f43a19f6e4a280dd49, type: 2}
+  - {fileID: 11400000, guid: 821071711aa561d48b89815da3898ceb, type: 2}
+  - {fileID: 11400000, guid: 7499f65b5a9290e4993195848bab3e42, type: 2}
+  - {fileID: 11400000, guid: 6d2a3667f4a86844a83de7ee54e33775, type: 2}
+  - {fileID: 11400000, guid: d118b573117c23e4ba79ba636f73547c, type: 2}
+  behaviorPollCooldown: 0.3
+  defaultMoveSpeed: 5
+  defaultRotationSpeed: 90
 --- !u!1001 &4279212050625320200
 PrefabInstance:
   m_ObjectHideFlags: 0

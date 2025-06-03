@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848eca9d05ef8f44fa1c4f384116618a, type: 3}
+  m_Name: NPCBehavior_LungeBack
+  m_EditorClassIdentifier: 
+  BehaviorID: LungeBack
+  _conditions:
+  - _conditionType: 0
+    TargetPositionCondition:
+      DistanceCheck: 1
+      DistanceConditions:
+      - Axis: 0
+        Comparison: 0
+        Value: 5
+      AngleCheck: 0
+      AngleConditions: []
+    CooldownCondition:
+      CooldownTime: 0
+  SpecialMoveTrigger: LungeBackward
+  MoveSpeed: 0
+  RotationSpeed: 720

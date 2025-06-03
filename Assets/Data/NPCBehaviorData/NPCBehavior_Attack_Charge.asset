@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52b99bd82c5cd5f48b0eb015bc71905a, type: 3}
+  m_Name: NPCBehavior_Attack_Charge
+  m_EditorClassIdentifier: 
+  BehaviorID: Charge
+  _conditions:
+  - _conditionType: 0
+    TargetPositionCondition:
+      DistanceCheck: 0
+      DistanceConditions:
+      - Axis: 0
+        Comparison: 0
+        Value: 10
+      - Axis: 0
+        Comparison: 4
+        Value: 5
+      AngleCheck: 1
+      AngleConditions:
+      - Comparison: 0
+        Value: 30
+    CooldownCondition:
+      CooldownTime: 0
+  - _conditionType: 1
+    TargetPositionCondition:
+      DistanceCheck: 0
+      DistanceConditions:
+      - Axis: 0
+        Comparison: 0
+        Value: 10
+      - Axis: 0
+        Comparison: 4
+        Value: 5
+      AngleCheck: 1
+      AngleConditions:
+      - Comparison: 0
+        Value: 30
+    CooldownCondition:
+      CooldownTime: 10
+  AnimatorTrigger: Attack1
+  AttackDataList: []
+  BehaviorStateOptions:
+  - MoveSpeed: 0
+    RotationSpeed: 20
+  - MoveSpeed: 40
+    RotationSpeed: 0
+  - MoveSpeed: 0
+    RotationSpeed: 0

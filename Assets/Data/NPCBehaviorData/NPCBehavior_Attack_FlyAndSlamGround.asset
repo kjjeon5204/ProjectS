@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52b99bd82c5cd5f48b0eb015bc71905a, type: 3}
+  m_Name: NPCBehavior_Attack_FlyAndSlamGround
+  m_EditorClassIdentifier: 
+  BehaviorID: SlamGround
+  _conditions:
+  - _conditionType: 1
+    TargetPositionCondition:
+      DistanceCheck: 0
+      DistanceConditions: []
+      AngleCheck: 0
+      AngleConditions: []
+    CooldownCondition:
+      CooldownTime: 15
+  DisableAnimatorRootMotion: 1
+  AnimatorTrigger: Attack3
+  AttackDataList: []
+  BehaviorStateOptions:
+  - MoveSpeed: 0
+    RotationSpeed: 0
+    SetToTargetPosition: 0
+  - MoveSpeed: 0
+    RotationSpeed: 0
+    SetToTargetPosition: 1
+  - MoveSpeed: 0
+    RotationSpeed: 0
+    SetToTargetPosition: 0
