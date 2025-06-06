@@ -99,6 +99,9 @@ namespace ProjectS.Combat.NPC.Behavior
             base.OnBehaviorStateEnter();
             Debug.Log($"Entering behavior state: {CurrentBehaviorSequence} for attack behavior: {_baseBehavior.name}");
             GetCurrentBehaviorStateOption()?.OnEnter(_npcCharacter);
+
+            Animator npcAnimator = _npcCharacter.GetComponent<Animator>();
+            AnimatorStateInfo stateInfo = npcAnimator.GetCurrentAnimatorStateInfo(0);
         }
 
         public override void OnBehaviorStateExit()
@@ -108,8 +111,6 @@ namespace ProjectS.Combat.NPC.Behavior
 
             CurrentBehaviorSequence++;
         }
-
-
 
 
         public override void IncrementBehaviorSequence()

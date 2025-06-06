@@ -11,7 +11,7 @@ namespace ProjectS.Combat.NPC {
         [SerializeField] private float behaviorPollCooldown = 1.0f;
         [SerializeField] private float defaultMoveSpeed = 5.0f;
         [SerializeField] private float defaultRotationSpeed = 45.0f; // Degrees per second
-
+        [SerializeField] private List<NPCModelReference> modelReferences;
 
         private NPCRuntimeBehavior _currentBehavior;
 
@@ -151,6 +151,19 @@ namespace ProjectS.Combat.NPC {
         public override NPCRuntimeBehavior GetCurrentRuntimeBehavior()
         {
             return _currentBehavior;
+        }
+
+        public void HandleAnimationEvent()
+        {
+            if (_currentBehavior != null)
+            {
+                //Call the animator event on the current behavior
+                _currentBehavior.TriggerAnimatorEvent("AnimationEvent");
+            }
+            else
+            {
+                Debug.LogWarning("No current behavior to handle animation event.");
+            }
         }
     }
 }

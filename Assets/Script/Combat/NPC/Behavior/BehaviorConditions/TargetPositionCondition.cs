@@ -146,7 +146,6 @@ namespace ProjectS.Combat.NPC.Behavior.Conditions
                     }
                 }
             }
-            Debug.Log($"TargetPositionCondition: Condition met: {returnValue} for NPC: {npcCharacter.name} with target: {npcCharacter.GetTarget().name}");
 
             return returnValue;
         }

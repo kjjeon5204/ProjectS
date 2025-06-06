@@ -23,6 +23,9 @@ namespace ProjectS.Combat.NPC.Behavior
         {
             EndBehavior();
         }
+
+
+
         public override void UpdateBehavior()
         {
             // Move the NPC character at the specified speed during the special move
@@ -49,7 +52,7 @@ namespace ProjectS.Combat.NPC.Behavior
 
         public override void TriggerAnimatorEvent(string eventName)
         {
-            //Do nothing.
+
         }
     }
 }
